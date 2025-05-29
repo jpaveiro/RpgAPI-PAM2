@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RpgApi.Data;
+using RpgApi.Models;
 
 namespace RpgApi.Controllers
 {
@@ -18,10 +19,26 @@ namespace RpgApi.Controllers
         [HttpGet("Get")]
         public async Task<IActionResult> Get()
         {
-            return Ok(
+                return Ok(
                 await _context
                 .TBL_ARMA
                 .ToListAsync());
+        }
+
+        [HttpPut("Put")]
+        public async Task<IActionResult> Atualizar(Arma arma)
+        {
+            if (arma == null)
+            {
+                return BadRequest(
+                    new
+                    {
+                        Message = "Por favor, insira as informações da arma."
+                    });
+            }
+            var armaEncontrada = _context
+                                 .TBL_ARMA
+                                 .
         }
 
         [HttpGet("GetById/{id}")]
